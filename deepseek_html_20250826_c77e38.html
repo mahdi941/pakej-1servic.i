@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سرویس ویژه تعمیرات پکیج | طراحی خلاقانه</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff416c;
+            --light: #ffffff;
+            --dark: #2c3e50;
+            --success: #00b09b;
+            --warning: #ff9966;
+            --danger: #ff5e62;
+            --background: #f9f9f9;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-primary: #333333;
+            --text-secondary: #666666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #f5f7fa, #e4e8f0);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle fill="%236a11cb" fill-opacity="0.03" cx="25" cy="25" r="15"/><circle fill="%232575fc" fill-opacity="0.03" cx="75" cy="75" r="15"/></svg>');
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* هدر با طراحی جدید */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .contact-header a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .contact-header a:hover {
+            color: var(--accent);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* طراحی کارتی جدید */
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            border-radius: 3px;
+        }
+
+        /* هیرو سکشن */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%236a11cb" fill-opacity="0.1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,224C672,235,768,181,864,160C960,139,1056,149,1152,138.7C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom no-repeat, linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background-size: 100%, cover;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* خدمات */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* فرم */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group i {
+            color: var(--primary);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
+        }
+
+        /* پنل مدیریت */
+        .admin-panel {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .admin-section {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 80vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .admin-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .orders-table th, .orders-table td {
+            border: 1px solid #e1e8ed;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .orders-table th {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .orders-table tr:nth-child(even) {
+            background-color: rgba(106, 17, 203, 0.05);
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+        }
+
+        .view-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* فوتر */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2a3a 100%);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* مناطق تحت پوشش */
+        .coverage-areas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .area-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* اینستاگرام */
+        .instagram-btn {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* رسپانسیو - بهبود بخش مدیریت برای موبایل */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-header {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .services {
+                grid-template-columns: 1fr;
+            }
+            
+            /* بهبود بخش مدیریت در موبایل */
+            .admin-section {
+                width: 95%;
+                padding: 15px;
+                max-height: 85vh;
+            }
+            
+            .admin-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .orders-table-container {
+                overflow-x: auto;
+                width: 100%;
+                margin: 15px 0;
+            }
+            
+            .orders-table {
+                font-size: 0.75rem;
+                min-width: 700px;
+            }
+            
+            .orders-table th, 
+            .orders-table td {
+                padding: 8px 5px;
+            }
+            
+            .orders-table th:nth-child(1),
+            .orders-table td:nth-child(1) {
+                width: 50px;
+            }
+            
+            .orders-table th:nth-child(2),
+            .orders-table td:nth-child(2),
+            .orders-table th:nth-child(3),
+            .orders-table td:nth-child(3) {
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .orders-table th:nth-child(4),
+            .orders-table td:nth-child(4),
+            .orders-table th:nth-child(5),
+            .orders-table td:nth-child(5) {
+                max-width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .orders-table th:nth-child(6),
+            .orders-table td:nth-child(6) {
+                width: 120px;
+            }
+            
+            .orders-table th:nth-child(7),
+            .orders-table td:nth-child(7) {
+                width: 100px;
+            }
+            
+            .action-btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+                margin: 2px;
+            }
+            
+            .coverage-areas {
+                justify-content: center;
+            }
+            
+            .admin-login input {
+                max-width: 100%;
+            }
+        }
+
+        /* انیمیشن‌ها */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- پنل مدیریت -->
+    <div class="admin-panel">
+        <div class="admin-btn" onclick="toggleAdmin()">
+            <i class="fas fa-cog"></i>
+        </div>
+    </div>
+
+    <div class="admin-section" id="adminSection">
+        <h2><i class="fas fa-tachometer-alt"></i> پنل مدیریت سفارشات</h2>
+        <div class="admin-login" id="adminLoginForm">
+            <div class="form-group">
+                <label for="adminCode"><i class="fas fa-key"></i> کد مدیریتی:</label>
+                <input type="password" id="adminCode" placeholder="کد 1206 را وارد کنید">
+            </div>
+            <button class="btn" onclick="loginAdmin()">ورود به پنل</button>
+        </div>
+        <div id="adminContent" style="display: none;">
+            <div class="form-group">
+                <input type="text" id="searchOrders" placeholder="جستجو در سفارشات...">
+            </div>
+            <div class="orders-table-container">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>نام مشتری</th>
+                            <th>شماره تماس</th>
+                            <th>مدل دستگاه</th>
+                            <th>نوع مشکل</th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersList">
+                        <!-- محتوای پویا -->
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn" onclick="logoutAdmin()" style="background: var(--danger); margin-top: 20px;">خروج از پنل</button>
+        </div>
+    </div>
+
+    <!-- هدر -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-tools"></i>
+                <span>سرویس پکیج</span>
+            </div>
+            
+            <div class="contact-header">
+                <a href="tel:+989999853694">
+                    <i class="fas fa-phone"></i>
+                    <span>۰۹۹۹۹۸۵۳۶۹۴</span>
+                </a>
+                <span>|</span>
+                <a href="https://instagram.com/pakeyj1" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <span>اینستاگرام</span>
+                </a>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#services"><i class="fas fa-concierge-bell"></i> خدمات</a>
+                <a href="#order"><i class="fas fa-phone"></i> ثبت درخواست</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> درباره ما</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- هیرو سکشن -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>تخصصی‌ترین خدمات تعمیرات پکیج</h1>
+            <p>با بیش از ۵ سال تجربه و هزاران مشتری راضی - کیفیت را با ما تجربه کنید</p>
+            <div class="coverage-areas">
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> اصفهان</span>
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> خمینی شهر</span>
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> نجف آباد</span>
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> بهارستان</span>
+            </div>
+            <a href="#order" class="btn">ثبت درخواست فوری <i class="fas fa-bolt"></i></a>
+        </div>
+    </section>
+
+    <!-- خدمات -->
+    <section class="container" id="services">
+        <h2 class="card-title"><i class="fas fa-list-alt"></i> خدمات ما</h2>
+        <div class="services">
+            <div class="service-card animated">
+                <div class="service-icon">
+                    <i class="fas fa-toolbox"></i>
+                </div>
+                <h3>تعمیرات تخصصی</h3>
+                <p>تعمیرات تخصصی انواع پکیج با استفاده از پیشرفته‌ترین ابزارها و تجهیزات</p>
+            </div>
+            <div class="service-card animated">
+                <div class="service-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>سرویس دوره‌ای</h3>
+                <p>سرویس دوره‌ای منظم برای افزایش عمر دستگاه و جلوگیری از خرابی‌های پیش‌بینی نشده</p>
+            </div>
+            <div class="service-card animated">
+                <div class="service-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>پشتیبانی ۲۴ ساعته</h3>
+                <p>پشتیبانی و خدمات اضطراری در ۲۴ ساعت شبانه‌روز و ۷ روز هفته</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- فرم درخواست خدمت -->
+    <section class="container" id="order">
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-file-alt"></i> فرم درخواست خدمت</h2>
+            <form id="serviceForm">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> نام کامل:</label>
+                    <input type="text" id="name" required placeholder="نام و نام خانوادگی خود را وارد کنید">
+                </div>
+                <div class="form-group">
+                    <label for="phone"><i class="fas fa-phone"></i> شماره تماس:</label>
+                    <input type="tel" id="phone" required placeholder="شماره تماس خود را وارد کنید">
+                </div>
+                <div class="form-group">
+                    <label for="address"><i class="fas fa-map-marker-alt"></i> آدرس دقیق:</label>
+                    <textarea id="address" rows="2" required placeholder="آدرس کامل خود را وارد کنید"></textarea>
+                </div>
+                
+                <!-- فیلد برای مدل دستگاه -->
+                <div class="form-group">
+                    <label for="deviceModel"><i class="fas fa-cog"></i> مدل دستگاه:</label>
+                    <select id="deviceModel" required>
+                        <option value="">لطفاً مدل دستگاه خود را انتخاب کنید</option>
+                        <option value="ایران رادیاتور">ایران رادیاتور</option>
+                        <option value="بوتان">بوتان</option>
+                        <option value="لورچ">لورچ</option>
+                        <option value="سایر">سایر مدل‌ها</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="problemType"><i class="fas fa-exclamation-circle"></i> نوع مشکل:</label>
+                    <select id="problemType" required>
+                        <option value="">انتخاب نوع مشکل</option>
+                        <option value="افت فشار آب">افت فشار آب</option>
+                        <option value="عدم گرمایش">عدم گرمایش</option>
+                        <option value="صداهای غیرعادی">صداهای غیرعادی</option>
+                        <option value="خطای نمایشگر">خطای نمایشگر</option>
+                        <option value="سرویس دوره‌ای">سرویس دوره‌ای</option>
+                        <option value="سایر">سایر مشکلات</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-comment"></i> توضیحات بیشتر:</label>
+                    <textarea id="description" rows="3" placeholder="توضیحات بیشتری درباره مشکل خود بنویسید"></textarea>
+                </div>
+                <button type="submit" class="btn">ثبت درخواست <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- درباره ما -->
+    <section class="container" id="about">
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-info-circle"></i> درباره ما</h2>
+            <p>گروه تخصصی سرویس پکیج با بیش از ۵ سال سابقه в زمینه تعمیرات و سرویس‌دهی به انواع پکیج‌های دیواری، همواره کیفیت و رضایت مشتری را اولویت اول خود قرار داده است.</p>
+            <p>ما با بهره‌گیری از نیروهای متخصص و مجرب و استفاده از پیشرفته‌ترین تجهیزات، آماده ارائه خدمات به شما عزیزان هستیم.</p>
+            
+            <h3 style="margin-top: 25px;"><i class="fas fa-map-marked-alt"></i> مناطق تحت پوشش:</h3>
+            <div class="coverage-areas">
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> اصفهان</span>
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> خمینی شهر</span>
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> نجف آباد</span>
+                <span class="area-badge"><i class="fas fa-map-marker-alt"></i> بهارستان</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- تماس با ما -->
+    <section class="container" id="contact">
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-address-book"></i> تماس با ما</h2>
+            <div class="contact-info">
+                <p><i class="fas fa-phone"></i> تلفن: ۰۹۹۹۹۸۵۳۶۹۴</p>
+                <p><i class="fas fa-map-marker-alt"></i> آدرس: خمینی شهر، خیابان امیرکبیر، کوچه ۱۰۷</p>
+                <p><i class="fas fa-clock"></i> ساعت کاری: همه روزه از ۸ صبح до ۱۰ شب</p>
+                
+                <a href="https://instagram.com/pakeyj1" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i>
+                    صفحه اینستاگرام ما
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> دسترسی سریع</h3>
+                    <ul>
+                        <li><a href="#services">خدمات</a></li>
+                        <li><a href="#order">ثبت درخواست</a></li>
+                        <li><a href="#about">درباره ما</a></li>
+                        <li><a href="#contact">تماس با ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-concierge-bell"></i> خدمات ما</h3>
+                    <ul>
+                        <li>تعمیرات تخصصی پکیج</li>
+                        <li>سرویس دوره‌ای</li>
+                        <li>نصب و راه‌اندازی</li>
+                        <li>پشتیبانی ۲۴ ساعته</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> مناطق تحت پوشش</h3>
+                    <ul>
+                        <li>اصفهان</li>
+                        <li>خمینی شهر</li>
+                        <li>نجف آباد</li>
+                        <li>بهارستان</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-share-alt"></i> ارتباط با ما</h3>
+                    <p>همواره برای دریافت مشاوره رایگان و پاسخگویی به سوالات شما آماده‌ایم.</p>
+                    <a href="https://instagram.com/pakeyj1" target="_blank" class="instagram-btn">
+                        <i class="fab fa-instagram"></i>
+                        پیج اینستاگرام
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>کلیه حقوق این سایت محفوظ است © ۱۴۰۲</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // مدیریت پنل مدیریت
+        function toggleAdmin() {
+            const adminSection = document.getElementById('adminSection');
+            adminSection.style.display = adminSection.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function loginAdmin() {
+            const code = document.getElementById('adminCode').value;
+            if (code === '1206') {
+                document.getElementById('adminLoginForm').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                loadOrders();
+            } else {
+                alert('کد مدیریتی صحیح نیست!');
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('adminLoginForm').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('adminCode').value = '';
+        }
+
+        // مدیریت فرم
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                deviceModel: document.getElementById('deviceModel').value,
+                problemType: document.getElementById('problemType').value,
+                description: document.getElementById('description').value,
+                date: new Date().toLocaleString('fa-IR')
+            };
+
+            // ذخیره در localStorage
+            saveOrder(formData);
+            
+            // نمایش پیام موفقیت
+            alert('درخواست شما با موفقیت ثبت شد. همکاران ما به زودی با شما تماس خواهند گرفت.');
+            
+            // ریست فرم
+            this.reset();
+        });
+
+        // توابع مدیریت سفارشات
+        function saveOrder(order) {
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            order.id = Date.now();
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const ordersList = document.getElementById('ordersList');
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<tr><td colspan="7" style="text-align: center;">هیچ سفارشی ثبت نشده است</td></tr>';
+                return;
+            }
+            
+            ordersList.innerHTML = orders.map((order, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${order.name}</td>
+                    <td>${order.phone}</td>
+                    <td>${order.deviceModel}</td>
+                    <td>${order.problemType}</td>
+                    <td>${order.date}</td>
+                    <td>
+                        <button class="action-btn view-btn" onclick="viewOrder(${order.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn delete-btn" onclick="deleteOrder(${order.id})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewOrder(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const order = orders.find(o => o.id === orderId);
+            
+            if (order) {
+                alert(`
+                    نام: ${order.name}
+                    تلفن: ${order.phone}
+                    آدرس: ${order.address}
+                    مدل دستگاه: ${order.deviceModel}
+                    نوع مشکل: ${order.problemType}
+                    توضیحات: ${order.description || 'ندارد'}
+                    تاریخ: ${order.date}
+                `);
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (confirm('آیا از حذف این سفارش اطمینان دارید؟')) {
+                let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders = orders.filter(o => o.id !== orderId);
+                localStorage.setItem('orders', JSON.stringify(orders));
+                loadOrders();
+            }
+        }
+
+        // انیمیشن اسکرول
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transition = 'opacity 0.8s ease-out';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
